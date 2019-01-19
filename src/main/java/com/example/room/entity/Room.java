@@ -7,17 +7,17 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name= "member")
-public class Member {
+@Table(name = "room")
+public class Room {
 
     @Id
     @GeneratedValue
     @Column
-    private Long userId;
+    private Long roomNumber;
 
     @Column(length = 20, nullable = false)
     @NonNull
-    private String userName;
+    private String roomName;
 
 
 }

@@ -9,11 +9,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.sql.DataSource;
-
-import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -32,18 +31,13 @@ public class MemberRepositoryTest {
     }
 
     @Test
-    public void table() throws Exception {
+    public void table() {
         String testUserName= "테스트";
         Member member = new Member(testUserName);
         Member save = memberRepository.save(member);
-        Optional<Member> memberById = memberRepository.findById(save.getId());
-        if(memberById == null){
-            throw new Exception("fail");
-        }
-        if(memberById.get() == null){
-            throw new Exception("fail");
-        }
-        assertEquals(save.getId(), memberById.get().getId());
+        Optional<Member> memberById = memberRepository.findById(save.getUserId());
+        assertTrue(memberById.isPresent());
+        assertEquals(save.getUserId(), memberById.get().getUserId());
     }
 
 }
