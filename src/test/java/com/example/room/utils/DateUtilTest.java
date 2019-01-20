@@ -2,10 +2,7 @@ package com.example.room.utils;
 
 import org.junit.Test;
 
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
@@ -61,12 +58,21 @@ public class DateUtilTest {
         assertThat(integers, is(expected));
     }
 
-
     @Test
-    public void getRecurringDays() {
-        List<Date> recurringDays = DateUtil.getRecurringDays(2019, 1, 19, 2, 7);
-        SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
-        assertEquals("2019/01/19", date.format(recurringDays.get(0)));
-        assertEquals("2019/01/26", date.format(recurringDays.get(1)));
+    public void getRecurringDaysAnotherParam() {
+        Calendar calendar = new GregorianCalendar(2019, 1, 20);
+        List<Date> recurringDays = DateUtil.getRecurringDays(calendar.getTime(), 2);
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.setTime(recurringDays.get(0));
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.setTime(recurringDays.get(1));
+        assertEquals(2019, calendar1.get(Calendar.YEAR));
+        assertEquals(1, calendar1.get(Calendar.MONTH));
+        assertEquals(20, calendar1.get(Calendar.DAY_OF_MONTH));
+
+        assertEquals(2019, calendar2.get(Calendar.YEAR));
+        assertEquals(1, calendar2.get(Calendar.MONTH));
+        assertEquals(27, calendar2.get(Calendar.DAY_OF_MONTH));
+
     }
 }

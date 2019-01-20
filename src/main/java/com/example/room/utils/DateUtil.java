@@ -11,15 +11,23 @@ public class DateUtil {
     public static final int MAX_TIME = 2400;
     public static final int O_CLOCK = 0;
     public static final int HOUR = 100;
+    public static final int DAYS_OF_WEEK = 7;
 
-    public static List<Integer> extractList(int startHour, int startMinute, int endHour, int endMinute) throws Exception {
-        int startUnit = parseToUnit(startHour, startMinute);
-        int endUnit = parseToUnit(endHour, endMinute);
-        if (endUnit <= startUnit) {
-            throw new Exception("startTime is later than endTime");
-        }
-        if (endUnit > MAX_TIME) {
-            throw new Exception("endTime is not TimeUnit");
+    public static List<Integer> extractList(int startHour, int startMinute, int endHour, int endMinute) {
+        int startUnit;
+        int endUnit;
+        try {
+            startUnit = parseToUnit(startHour, startMinute);
+            endUnit = parseToUnit(endHour, endMinute);
+            if (endUnit <= startUnit) {
+                throw new Exception("startTime is later than endTime");
+            }
+            if (endUnit > MAX_TIME) {
+                throw new Exception("endTime is not TimeUnit");
+            }
+        } catch (Exception e) {
+            //TODO error log
+            return new ArrayList<>();
         }
         List<Integer> resultList = new ArrayList<>();
         for (int i = startUnit; i < endUnit; i = i + HOUR_PER_UNIT) {
@@ -28,15 +36,23 @@ public class DateUtil {
         return resultList;
     }
 
-    public static List<Date> getRecurringDays(int yyyy, int mm, int dd, int recurring, int recurringUnit) {
+    private static List<Date> getRecurringDays(int yyyy, int mm, int dd, int recurring) {
         Calendar cal = Calendar.getInstance();
-        cal.set(yyyy, mm - 1, dd);
+        cal.set(yyyy, mm, dd);
         List<Date> recurringDateList = new ArrayList<>();
         for (int i = 0; i < recurring; i++) {
             recurringDateList.add(cal.getTime());
-            cal.add(Calendar.DAY_OF_MONTH, recurringUnit);
+            cal.add(Calendar.DAY_OF_MONTH, DAYS_OF_WEEK);
         }
         return recurringDateList;
+    }
+
+    public static List<Date> getRecurringDays(Date date, int recurring) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return getRecurringDays(cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH), recurring);
     }
 
 

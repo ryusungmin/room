@@ -39,7 +39,6 @@ public class Reservation {
     @NonNull
     private int startMinute;
 
-
     @Column(nullable = false)
     @NonNull
     private int endHour;
