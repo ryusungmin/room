@@ -1,13 +1,15 @@
 package com.example.room.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "room")
+@NoArgsConstructor
+@Table(name = "room", uniqueConstraints = @UniqueConstraint(columnNames = "roomName"))
 public class Room {
 
     @Id

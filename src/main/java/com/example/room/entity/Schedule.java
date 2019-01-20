@@ -1,19 +1,23 @@
 package com.example.room.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "schedule",
         uniqueConstraints = @UniqueConstraint(columnNames = {"roomNumber", "reserveDate", "timeUnit"}))
 public class Schedule {
+
+    @Id
+    @GeneratedValue
+    @Column
+    private Long scheduleId;
 
     @Column(nullable = false)
     @NonNull

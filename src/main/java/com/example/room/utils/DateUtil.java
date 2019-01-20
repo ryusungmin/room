@@ -1,10 +1,13 @@
 package com.example.room.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 public class DateUtil {
     public static final int TIME_UNIT = 30;
     public static final int HOUR_PER_UNIT = 50;
@@ -26,7 +29,7 @@ public class DateUtil {
                 throw new Exception("endTime is not TimeUnit");
             }
         } catch (Exception e) {
-            //TODO error log
+            log.error(e.getMessage(), e);
             return new ArrayList<>();
         }
         List<Integer> resultList = new ArrayList<>();

@@ -7,5 +7,5 @@ import java.util.Date;
 import java.util.List;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
-    List<Schedule> findAllReserveDateBetween(Date start, Date end);
+    List<Schedule> findByReserveDateBetween(Date start, Date end);
 }

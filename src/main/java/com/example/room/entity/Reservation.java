@@ -1,6 +1,7 @@
 package com.example.room.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
@@ -8,10 +9,10 @@ import java.util.Date;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "reservation",
         indexes = {@Index(name = "reservation_index_1", columnList = "roomNumber"),
-                @Index(name = "reservation_index_2", columnList = "start"),
-                @Index(name = "reservation_index_3", columnList = "end")
+                @Index(name = "reservation_index_2", columnList = "reserveDate")
         })
 public class Reservation {
     @Id

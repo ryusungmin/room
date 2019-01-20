@@ -13,13 +13,15 @@ public class RoomService {
     private RoomRepository roomRepository;
 
     public Room setRoom(String roomName) {
-        Room room = new Room(roomName);
+        Room room = new Room();
+        room.setRoomName(roomName);
         Room insertedRoom = roomRepository.save(room);
         return insertedRoom;
     }
 
     public Long getRoomNumber(String roomName) {
-        return roomRepository.findByRoomName(roomName);
+        Room room = roomRepository.findByRoomName(roomName);
+        return room.getRoomNumber();
     }
 
     public String getRoomName(Long roomNumber) {
