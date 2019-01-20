@@ -29,7 +29,7 @@ public class ScheduleService {
         int day = myCal.get(Calendar.DAY_OF_MONTH);
         Calendar calendar = new GregorianCalendar(year, month, day);
         Date startDate = calendar.getTime();
-        calendar.add(Calendar.MONTH, 1);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
         Date endDate = calendar.getTime();
         return scheduleRepository.findAllReserveDateBetween(startDate, endDate);
     }
