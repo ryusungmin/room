@@ -5,7 +5,10 @@ import com.example.room.repository.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 @Service
 public class ScheduleService {
@@ -21,10 +24,14 @@ public class ScheduleService {
     public List<Schedule> getScheduleListByDay(Date date) {
         Calendar myCal = new GregorianCalendar();
         myCal.setTime(date);
-        return new ArrayList<>();
+        int year = myCal.get(Calendar.YEAR);
+        int month = myCal.get(Calendar.MONTH);
+        int day = myCal.get(Calendar.DAY_OF_MONTH);
+        Calendar calendar = new GregorianCalendar(year, month, day);
+        Date startDate = calendar.getTime();
+        calendar.add(Calendar.MONTH, 1);
+        Date endDate = calendar.getTime();
+        return scheduleRepository.findAllReserveDateBetween(startDate, endDate);
     }
-
-
-
 }
 
