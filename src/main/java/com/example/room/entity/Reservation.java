@@ -29,11 +29,24 @@ public class Reservation {
 
     @Column(nullable = false)
     @NonNull
-    private Date start;
+    private Date reserveDate;
 
     @Column(nullable = false)
     @NonNull
-    private Date end;
+    private int startHour;
+
+    @Column(nullable = false)
+    @NonNull
+    private int startMinute;
+
+
+    @Column(nullable = false)
+    @NonNull
+    private int endHour;
+
+    @Column(nullable = false)
+    @NonNull
+    private int endMinute;
 
     @Column(nullable = false)
     @NonNull

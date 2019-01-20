@@ -5,7 +5,6 @@ import lombok.NonNull;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -14,20 +13,20 @@ import java.util.Date;
 @Table(name = "schedule")
 public class Schedule {
 
-    @Id
-    @Column
+    @Column(nullable = false)
     private Long roomNumber;
 
     @Column(nullable = false)
     @NonNull
-    private Date start;
+    private Date reserveDate;
 
     @Column(nullable = false)
     @NonNull
-    private Date end;
+    private int timeUnit;
 
+    @Column(nullable = false)
     @NonNull
-    private String userId;
+    private String userName;
 
 
 }
