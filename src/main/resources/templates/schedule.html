@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Room Reserver</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href='fullcalendar.css' rel='stylesheet'/>
+    <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript">
+  $(function() {
+    $('#calendar').fullCalendar({
+      height: 600,
+      displayEventEnd:true,
+      timeFormat: 'H(:mm)',
+      events: {
+        url : '/getSchedule?roomName=[[${reserveRoom}]]',
+        cache: false
+      }
+    });
+
+    $( "#datepicker" ).datepicker();
+  });
+
+
+  function show(value){
+    window.location.href = "/schedule?roomName="+value;
+  }
+
+  function reserveDate(){
+    var roomName = $('#roomName').val();
+    var date = $('#datepicker').val();
+    var startHour = $('#startHour').val();
+    var startMinute = $('#startMinute').val();
+    var endHour = $('#endHour').val();
+    var endMinute = $('#endMinute').val();
+    var userName = $('#name').val();
+    var recurring = $('#recurring').val();
+     $.ajax({
+            type: "post",
+            url: "/setSchedule",
+            data: {
+                        roomName: roomName,
+                        date: date,
+                        startHour: startHour,
+                        startMinute: startMinute,
+                        endHour: endHour,
+                        endMinute: endMinute,
+                        userName: userName,
+                        recurring: recurring
+                   },
+            contentType: "application/x-www-form-urlencoded",
+            success: function(data) {
+                alert(data);
+                if('예약성공' == data){
+                    window.location.reload(true);
+                }
+            },
+            error: function(data) {
+                alert(data);
+            }
+        })
+  }
+
+
+    </script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src='lib/moment.min.js'></script>
+    <script src='fullcalendar.js'></script>
+</head>
+<body>
+<select name="select" onchange="show(value)" style="height:200px;">
+    <option value=""> --</option>
+    <option th:each="room : ${roomList}"
+            th:selected="${room.roomName}==${reserveRoom}"
+            th:utext="${room.roomName}"
+            th:value="${room.roomName}"/>
+</select><br>
+
+
+<form action="javascript:void(0);" method="POST" name="reserveData" onSubmit="reserveDate()">
+    <input id="roomName" name="roomName" th:value="${reserveRoom}" type="hidden">
+    예약자명: <input id="name" name="name" type="text" value=""><br>
+    Date: <input id="datepicker" name="date" type="text">
+    <select id="startHour" name="startHour">
+        <option selected="selected" value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <option value="21">21</option>
+        <option value="22">22</option>
+        <option value="23">23</option>
+    </select> 시
+    <select id="startMinute" name="startMinute">
+        <option selected="selected" value="00">00</option>
+        <option value="30">30</option>
+    </select> 분부터
+    <select id="endHour" name="endHour">
+        <option selected="selected" value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <option value="21">21</option>
+        <option value="22">22</option>
+        <option value="23">23</option>
+    </select> 시
+    <select id="endMinute" name="endMinute">
+        <option selected="selected" value="00">00</option>
+        <option value="30">30</option>
+    </select> 분까지
+    <input id="recurring" min="0" name="recurring" type="number" value="1">번 반복
+    <input type="submit" value="예약"><br><br>
+</form>
+<div id='calendar'></div>
+</body>
+</html>

@@ -5,7 +5,7 @@ import com.example.room.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class RoomService {
@@ -19,14 +19,14 @@ public class RoomService {
         return insertedRoom;
     }
 
-    public Long getRoomNumber(String roomName) {
-        Room room = roomRepository.findByRoomName(roomName);
-        return room.getRoomNumber();
+    public Room getRoom(String roomName) {
+        return roomRepository.findByRoomName(roomName);
     }
 
-    public String getRoomName(Long roomNumber) {
-        Optional<Room> byId = roomRepository.findById(roomNumber);
-        return byId.get().getRoomName(); // TODO null 처리
+    public List<Room> getAllRooms() {
+        return roomRepository.findAll();
     }
+
+
 }
 

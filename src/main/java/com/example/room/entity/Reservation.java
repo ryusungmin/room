@@ -10,10 +10,7 @@ import java.util.Date;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "reservation",
-        indexes = {@Index(name = "reservation_index_1", columnList = "roomNumber"),
-                @Index(name = "reservation_index_2", columnList = "reserveDate")
-        })
+@Table(name = "reservation")
 public class Reservation {
     @Id
     @GeneratedValue
@@ -30,7 +27,7 @@ public class Reservation {
 
     @Column(nullable = false)
     @NonNull
-    private Date reserveDate;
+    private String reserveDate;
 
     @Column(nullable = false)
     @NonNull

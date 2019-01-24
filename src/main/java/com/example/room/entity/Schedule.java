@@ -5,13 +5,11 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "schedule",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"roomNumber", "reserveDate", "timeUnit"}))
+@Table(name = "schedule")
 public class Schedule {
 
     @Id
@@ -23,13 +21,19 @@ public class Schedule {
     @NonNull
     private Long roomNumber;
 
+
     @Column(nullable = false)
     @NonNull
-    private Date reserveDate;
+    private String reserveDate;
+
 
     @Column(nullable = false)
     @NonNull
     private int timeUnit;
+
+    @Column(nullable = false)
+    @NonNull
+    private int recurring;
 
     @Column(nullable = false)
     @NonNull

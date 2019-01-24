@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 
 @RunWith(SpringRunner.class)
@@ -18,22 +21,43 @@ public class RoomServiceTest {
     private RoomService roomService;
 
     @Test
-    public void setRoom() {
+    public void setRoom_정상() {
         Room room = roomService.setRoom("회의실테스트");
         assertEquals("회의실테스트", room.getRoomName());
     }
 
-    @Test
-    public void getRoomNumber() {
-        Room room = roomService.setRoom("회의실테스트2");
-        Long roomNumber = roomService.getRoomNumber("회의실테스트2");
+    @Test(expected = Exception.class)
+    public void setRoom_중복() {
+        Room room = roomService.setRoom("회의실테스트");
+        Room room2 = roomService.setRoom("회의실테스트");
     }
 
     @Test
-    public void getRoomName() {
-        Room room = roomService.setRoom("회의실테스트3");
-        Long roomNumber = roomService.getRoomNumber("회의실테스트3");
-        String roomName = roomService.getRoomName(roomNumber);
-        assertEquals("회의실테스트3", roomName);
+    public void getRoom_정상() {
+        Room setRoom = roomService.setRoom("회의실테스트2");
+        Room getRoom = roomService.getRoom("회의실테스트2");
+        assertEquals(setRoom.getRoomNumber(), getRoom.getRoomNumber());
     }
+
+    @Test
+    public void getAllRoom_정상() {
+        Room setRoom3 = roomService.setRoom("회의실테스트3");
+        Room setRoom4 = roomService.setRoom("회의실테스트4");
+        List<Room> roomList = roomService.getAllRooms();
+        boolean flag1 = false;
+        boolean flag2 = false;
+        for (Room room : roomList) {
+            if (room.getRoomNumber() == setRoom3.getRoomNumber()) {
+                flag1 = true;
+            }
+            if (room.getRoomNumber() == setRoom4.getRoomNumber()) {
+                flag2 = true;
+            }
+        }
+        assertTrue(flag1);
+        assertTrue(flag2);
+    }
+
+
+
 }
