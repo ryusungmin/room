@@ -58,7 +58,7 @@ public class FullCalendarDate {
             this.year = 0;
             this.month = 0;
             this.day = 0;
-            date = null;
+            this.date = null;
         }
     }
 

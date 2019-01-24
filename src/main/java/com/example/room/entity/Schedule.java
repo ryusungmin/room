@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "schedule")
+@Table(name = "schedule", uniqueConstraints = @UniqueConstraint(columnNames = "scheduleKey"))
 public class Schedule {
 
     @Id
@@ -38,6 +38,12 @@ public class Schedule {
     @Column(nullable = false)
     @NonNull
     private String userName;
+
+    @Column(nullable = false)
+    @NonNull
+    private String scheduleKey;
+
+
 
 
 }

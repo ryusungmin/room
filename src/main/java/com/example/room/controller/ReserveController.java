@@ -4,7 +4,9 @@ import com.example.room.entity.Room;
 import com.example.room.model.Reserve;
 import com.example.room.service.ReserveService;
 import com.example.room.service.RoomService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 public class ReserveController {
 
@@ -45,10 +48,15 @@ public class ReserveController {
             if (reserveService.reserve(reserve)) {
                 return "예약성공";
             }
+            throw new Exception(reserve.getRoomName() + reserve.getStartHour() + reserve.getStartHour());
+        } catch (IllegalArgumentException i) {
+            return i.getMessage();
+        } catch (DataIntegrityViolationException d) {
+            return "이미 예약된 시간입니다.";
         } catch (Exception e) {
-            return e.getMessage();
+            log.error(e.getMessage());
+            return "시스템 오류입니다. 관리자에게 연락해주세요.";
         }
-        return "예약실패";
     }
 
 

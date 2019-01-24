@@ -24,10 +24,10 @@ public class DateUtil {
         startUnit = parseToUnit(startHour, startMinute);
         endUnit = parseToUnit(endHour, endMinute);
         if (endUnit <= startUnit) {
-            throw new Exception("시작시간과 종료시간이 같거나, 종료시간이 시작시간보다 먼저입니다.");
+            throw new IllegalArgumentException("시작시간과 종료시간이 같거나, 종료시간이 시작시간보다 먼저입니다.");
         }
         if (endUnit > MAX_TIME) {
-            throw new Exception("종료시간이 24시를 넘어갑니다.");
+            throw new IllegalArgumentException("종료시간이 24시를 넘어갑니다.");
         }
 
         List<Integer> resultList = new ArrayList<>();
@@ -62,7 +62,7 @@ public class DateUtil {
 
     private static int parseToUnit(int hour, int minute) throws Exception {
         if (hour < 0) {
-            throw new Exception("hour are invalid");
+            throw new IllegalArgumentException("hour are invalid");
         }
         if (minute == O_CLOCK) {
             return hour * HOUR;
@@ -70,7 +70,7 @@ public class DateUtil {
         if (minute == TIME_UNIT) {
             return hour * HOUR + HOUR_PER_UNIT;
         }
-        throw new Exception("minute is not TIME_UNIT TYPE");
+        throw new IllegalArgumentException("minute is not TIME_UNIT TYPE");
     }
 
 

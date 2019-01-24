@@ -33,8 +33,10 @@ public class ScheduleService {
         schedule.setTimeUnit(timeUnit);
         schedule.setUserName(userName);
         schedule.setRecurring(recurring);
+        schedule.setScheduleKey(roomNumber + reserveDate + timeUnit);
         return scheduleRepository.save(schedule);
     }
+
 
     public List<Event> getAllEvent(String roomName) {
         Room room = roomService.getRoom(roomName);
