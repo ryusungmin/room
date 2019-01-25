@@ -32,12 +32,6 @@ public class RoomServiceTest {
         Room room2 = roomService.setRoom("회의실테스트");
     }
 
-    @Test
-    public void getRoom_정상() {
-        Room setRoom = roomService.setRoom("회의실테스트2");
-        Room getRoom = roomService.getRoom("회의실테스트2");
-        assertEquals(setRoom.getRoomNumber(), getRoom.getRoomNumber());
-    }
 
     @Test
     public void getAllRoom_정상() {
