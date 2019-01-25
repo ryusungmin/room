@@ -13,3 +13,7 @@
   
   
 2. 프로젝트 빌드, 실행방법
+
+  - project download
+  - mvnw clean package
+  - java -jar room.jar 
