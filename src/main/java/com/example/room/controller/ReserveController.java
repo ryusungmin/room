@@ -52,7 +52,7 @@ public class ReserveController {
         } catch (IllegalArgumentException i) {
             return i.getMessage();
         } catch (DataIntegrityViolationException d) {
-            return "이미 예약된 시간입니다.";
+            return "이미 예약된 시간입니다. 시간과 반복 시 중복되는 시간이 있는지 확인해주세요.";
         } catch (Exception e) {
             log.error(e.getMessage());
             return "시스템 오류입니다. 관리자에게 연락해주세요.";

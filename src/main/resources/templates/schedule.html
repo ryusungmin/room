@@ -68,7 +68,7 @@
     <script src='fullcalendar.js'></script>
 </head>
 <body>
-<select name="select" onchange="show(value)" style="height:200px;">
+<select name="select" onchange="show(value)" style="height:60px;">
     <option value=""> --</option>
     <option th:each="room : ${roomList}"
             th:selected="${room.roomName}==${reserveRoom}"

@@ -6,6 +6,7 @@ import com.example.room.model.Event;
 import com.example.room.repository.ScheduleRepository;
 import com.example.room.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class ScheduleService {
         Schedule duplicated =
                 scheduleRepository.findOneByRoomNumberAndReserveDateAndTimeUnit(roomNumber, reserveDate, timeUnit);
         if (duplicated != null) {
-            throw new Exception("이미 예약된 시간입니다.");
+            throw new DataIntegrityViolationException("이미 예약된 시간입니다.");
         }
 
         Schedule schedule = new Schedule();
